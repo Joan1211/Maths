@@ -1,51 +1,43 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const taskList = document.getElementById('task-list');
-  const addTaskButton = document.getElementById('add-task-button');
-  const taskForm = document.getElementById('task-form');
-  const taskInput = document.getElementById('task-input');
-  const backButton = document.getElementById('back-button');
+// Check if we're on the home page
+if (document.getElementById('taskList')) {
+    // Load tasks from localStorage
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  // Load tasks from localStorage
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-  function renderTasks() {
-    if (taskList) {
-      taskList.innerHTML = '';
-      tasks.forEach((task) => {
-        const li = document.createElement('li');
-        li.textContent = task;
-        taskList.appendChild(li);
-      });
+    // Function to render tasks
+    function renderTasks() {
+        const taskList = document.getElementById('taskList');
+        taskList.innerHTML = '';
+        tasks.forEach((task, index) => {
+            const li = document.createElement('li');
+            li.textContent = task;
+            taskList.appendChild(li);
+        });
     }
-  }
 
-  renderTasks();
+    // Render tasks on page load
+    renderTasks();
 
-  // Add task button click event
-  if (addTaskButton) {
-    addTaskButton.addEventListener('click', function() {
-      window.location.href = 'add-task.html';
+    // Add Task button functionality
+    document.getElementById('addTaskBtn').addEventListener('click', () => {
+        window.location.href = 'add-task.html';
     });
-  }
+}
 
-  // Task form submit event
-  if (taskForm) {
-    taskForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const task = taskInput.value.trim();
-      if (task) {
-        tasks.push(task);
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-        taskInput.value = ''; // Clear the input field
-        window.location.href = 'index.html'; // Navigate back to Home Page
-      }
+// Check if we're on the add task page
+if (document.getElementById('addTaskForm')) {
+    document.getElementById('addTaskForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const taskInput = document.getElementById('taskInput');
+        const newTask = taskInput.value.trim();
+        if (newTask) {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            window.location.href = 'index.html';
+        }
     });
-  }
 
-  // Back button click event
-  if (backButton) {
-    backButton.addEventListener('click', function() {
-      window.location.href = 'index.html';
+    document.getElementById('backBtn').addEventListener('click', () => {
+        window.location.href = 'index.html';
     });
-  }
-});
+}
