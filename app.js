@@ -9,12 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
   function renderTasks() {
-    taskList.innerHTML = '';
-    tasks.forEach((task) => {
-      const li = document.createElement('li');
-      li.textContent = task;
-      taskList.appendChild(li);
-    });
+    if (taskList) {
+      taskList.innerHTML = '';
+      tasks.forEach((task) => {
+        const li = document.createElement('li');
+        li.textContent = task;
+        taskList.appendChild(li);
+      });
+    }
   }
 
   renderTasks();
