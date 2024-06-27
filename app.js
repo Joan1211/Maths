@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function renderTasks() {
     taskList.innerHTML = '';
-    tasks.forEach((task, index) => {
+    tasks.forEach((task) => {
       const li = document.createElement('li');
       li.textContent = task;
       taskList.appendChild(li);
@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (task) {
         tasks.push(task);
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        window.location.href = 'index.html';
+        taskInput.value = ''; // Clear the input field
+        window.location.href = 'index.html'; // Navigate back to Home Page
       }
     });
   }
