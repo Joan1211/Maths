@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Render tasks on page load
   renderTasks();
 
   // Add task button click event
@@ -32,4 +31,18 @@ document.addEventListener('DOMContentLoaded', function() {
     taskForm.addEventListener('submit', function(event) {
       event.preventDefault();
       const task = taskInput.value.trim();
-     
+      if (task) {
+        tasks.push(task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        window.location.href = 'index.html';
+      }
+    });
+  }
+
+  // Back button click event
+  if (backButton) {
+    backButton.addEventListener('click', function() {
+      window.location.href = 'index.html';
+    });
+  }
+});
